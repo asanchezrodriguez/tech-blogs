@@ -1,8 +1,8 @@
-chainlit
-python-dotenv
-azure-ai-projects
-azure-identity
-markitdown[all]
-tiktoken
-openai
-azure.ai.inference
+chainlit==2.5.5
+python-dotenv==1.1.0
+azure-ai-projects==1.0.0b12
+azure-identity==1.23.1
+markitdown[all]==0.1.2
+tiktoken==0.11.0
+openai==1.82.1
+azure-cli==2.76.0
