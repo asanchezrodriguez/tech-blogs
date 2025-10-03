@@ -1,4 +1,5 @@
-chainlit
-python-dotenv
-azure-ai-projects
-azure-identity
+chainlit==1.*
+azure-identity>=1.17.0
+azure-ai-projects>=1.0.0b0
+azure-ai-agents>=1.0.0b0
+python-dotenv>=1.0.1
