@@ -1,4 +1,4 @@
-chainlit==1.1.4
+chainlit
 pydantic==2.8.2
 pydantic-core==2.20.1
 
