@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Demo Widget + Chainlit</title>
+  <style>
+    :root{
+      --cl-primary:#1a73e8;
+      --cl-primary-dark:#1557b0;
+      --cl-accent:#00c853;
+      --cl-shadow:0 12px 30px rgba(0,0,0,.2);
+      --cl-radius:16px;
+      --cl-z:2147483000;
+      --cl-width:360px;
+      --cl-height:520px;
+    }
+    body{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; margin:0; background:#f5f7fb}
+    .container{max-width:920px; margin:60px auto; padding:0 16px}
+    h1{font-weight:700; letter-spacing:.2px}
+    p{color:#4b5563; line-height:1.55}
+
+    /* Launcher */
+    #cl-launcher{
+      position:fixed; right:18px; bottom:18px; z-index:var(--cl-z);
+      width:56px; height:56px; border-radius:999px;
+      background:var(--cl-primary); box-shadow:var(--cl-shadow);
+      display:grid; place-items:center; cursor:pointer;
+      user-select:none; transition:transform .15s ease, background .15s ease;
+    }
+    #cl-launcher:hover{transform:translateY(-1px); background:var(--cl-primary-dark)}
+    #cl-launcher svg{width:28px; height:28px; fill:#fff}
+
+    /* Widget */
+    #cl-widget{
+      position:fixed; right:18px; bottom:86px; z-index:var(--cl-z);
+      width:min(95vw, var(--cl-width));
+      height:min(80vh, var(--cl-height));
+      border-radius:var(--cl-radius); background:#fff;
+      box-shadow:var(--cl-shadow); overflow:hidden;
+      display:none; flex-direction:column;
+    }
+    #cl-header{
+      height:64px; padding:10px 14px;
+      background:linear-gradient(135deg, var(--cl-primary), var(--cl-primary-dark));
+      color:#fff; display:grid; grid-template-columns:1fr auto; align-items:center;
+    }
+    #cl-header .title{display:flex; align-items:center; gap:10px; font-weight:650}
+    #cl-header .presence{display:flex; align-items:center; gap:6px; font-size:12px; opacity:.95}
+    #cl-header .dot{width:10px; height:10px; border-radius:50%; background:var(--cl-accent); box-shadow:0 0 0 3px rgba(0,200,83,.15)}
+    #cl-header .actions{display:flex; gap:6px}
+    #cl-header button{all:unset; cursor:pointer; padding:6px; border-radius:8px}
+    #cl-header button:hover{background:rgba(255,255,255,.15)}
+
+    #cl-frame{width:100%; height:calc(100% - 64px); border:0; display:block; background:#f6f8fb}
+
+    #cl-footer{
+      position:absolute; bottom:6px; left:0; right:0;
+      text-align:center; font-size:11px; color:#9aa3ad;
+    }
+    #cl-footer a{color:inherit; text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Demo del Widget flotante</h1>
+    <p>
+      Esta página embeberá tu aplicación Chainlit que corre en <code>http://localhost:8000</code>
+      dentro de un widget flotante, similar al de tu ejemplo.
+    </p>
+    <p>
+      Haz clic en el botón azul (abajo a la derecha) para abrir el chat. Puedes personalizar
+      colores, título, y comportamientos en el código.
+    </p>
+  </div>
+
+  <!-- Widget -->
+  <div id="cl-widget" role="dialog" aria-label="Chat">
+    <div id="cl-header">
+      <div class="title">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff" aria-hidden="true">
+          <path d="M12 3a9 9 0 0 0-9 9c0 5 4 9 9 9h7l-2.4-2.4A9 9 0 0 0 21 12a9 9 0 0 0-9-9z"/>
+        </svg>
+        <div>
+          <div>Coach Vitamin</div>
+          <div class="presence"><span class="dot" aria-hidden="true"></span> Conectado</div>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="cl-minimize" aria-label="Minimizar">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M6 19h12v2H6z"/></svg>
+        </button>
+        <button id="cl-close" aria-label="Cerrar">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M18.3 5.71 12 12.01l6.3 6.28-1.41 1.42L10.6 13.4l-6.29 6.31-1.41-1.42L9.19 12 2.9 5.71 4.31 4.3l6.29 6.3 6.29-6.3z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <iframe
+      id="cl-frame"
+      title="Chainlit Chat"
+      src="http://localhost:8000"
+      allow="clipboard-read; clipboard-write; microphone; camera"
+    ></iframe>
+
+    <div id="cl-footer">POWERED BY <a href="https://chainlit.io" target="_blank" rel="noopener">Chainlit</a></div>
+  </div>
+
+  <!-- Launcher -->
+  <div id="cl-launcher" aria-label="Abrir chat">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0
