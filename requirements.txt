@@ -1,4 +1,7 @@
-chainlit==1.*
+chainlit==1.1.4
+pydantic==2.8.2
+pydantic-core==2.20.1
+
 azure-identity>=1.17.0
 azure-ai-projects>=1.0.0b0
 azure-ai-agents>=1.0.0b0
